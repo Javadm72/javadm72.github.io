@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>شجره‌نامه درختی</title>
+  <title>شجره‌نامه بلوکی</title>
   <style>
     body, html {
       margin: 0;
@@ -33,6 +33,13 @@
       text-align: center;
     }
 
+    .node {
+      display: flex;
+      flex-direction: column; /* پدر + بچه‌ها زیر هم */
+      align-items: center;
+      position: relative;
+    }
+
     .person {
       display: inline-block;
       padding: 8px 16px;
@@ -60,7 +67,7 @@
       animation: fadeIn 0.4s ease;
     }
 
-    /* خط عمودی بین پدر و خط افقی فرزندان */
+    /* خط عمودی از پدر تا خط افقی بچه‌ها */
     .children::before {
       content: "";
       position: absolute;
@@ -73,7 +80,7 @@
       transition: background 0.3s ease;
     }
 
-    /* خط افقی بالای فرزندان */
+    /* خط افقی بالای بچه‌ها */
     .children::after {
       content: "";
       position: absolute;
@@ -86,11 +93,11 @@
       transition: background 0.3s ease;
     }
 
-    /* خط عمودی بین هر فرزند و خط افقی */
-    .children > .person::before {
+    /* خط عمودی برای هر فرزند */
+    .children > .node::before {
       content: "";
       position: absolute;
-      top: -20px;
+      top: 20px;
       left: 50%;
       width: 2px;
       height: 20px;
@@ -120,21 +127,27 @@
   <div id="tree-container">
     <div id="tree">
       <!-- هوتک -->
-      <div class="person">هوتک</div>
-      <div class="children">
-        <!-- آلو -->
-        <div class="person">آلو</div>
+      <div class="node">
+        <div class="person">هوتک</div>
         <div class="children">
-          <!-- نخی -->
-          <div class="person">نخی</div>
-          <div class="children">
-            <!-- مراد و جغردی کنار هم -->
-            <div class="person">مراد</div>
-            <div class="person">جغردی</div>
+          <div class="node">
+            <div class="person">آلو</div>
             <div class="children">
-              <!-- فرزندان مراد -->
-              <div class="person">رحیمداد</div>
-              <div class="person">علم‌خان</div>
+              <div class="node">
+                <div class="person">نخی</div>
+                <div class="children">
+                  <div class="node">
+                    <div class="person">مراد</div>
+                    <div class="children">
+                      <div class="node"><div class="person">رحیمداد</div></div>
+                      <div class="node"><div class="person">علم‌خان</div></div>
+                    </div>
+                  </div>
+                  <div class="node">
+                    <div class="person">جغردی</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -150,13 +163,13 @@
 
     function highlightPath(person) {
       person.classList.add('highlight-person');
-      let parentChildren = person.parentElement;
-      while (parentChildren && parentChildren.classList.contains('children')) {
-        parentChildren.classList.add('highlight-line');
-        let parentPerson = parentChildren.previousElementSibling;
+      let parentNode = person.closest('.node').parentElement;
+      while (parentNode && parentNode.classList.contains('children')) {
+        parentNode.classList.add('highlight-line');
+        let parentPerson = parentNode.previousElementSibling;
         if (parentPerson && parentPerson.classList.contains('person')) {
           parentPerson.classList.add('highlight-person');
-          parentChildren = parentPerson.parentElement;
+          parentNode = parentPerson.closest('.node').parentElement;
         } else break;
       }
     }
