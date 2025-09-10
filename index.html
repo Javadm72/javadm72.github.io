@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>شجره‌نامه حرفه‌ای</title>
+  <title>شجره‌نامه با هایلایت</title>
   <style>
     body, html {
       margin: 0;
@@ -51,13 +51,21 @@
     .children {
       display: none;
       position: relative;
-      padding-top: 40px; /* فاصله برای خط عمودی */
+      padding-top: 40px;
     }
 
     .person.open + .children {
       display: flex;
       justify-content: center;
       animation: fadeIn 0.4s ease;
+    }
+
+    /* خطوط پیش‌فرض */
+    .children::before,
+    .children::after,
+    .children > .person::before {
+      background: #333;
+      transition: background 0.3s ease;
     }
 
     /* خط عمودی از والد به خط افقی */
@@ -68,7 +76,6 @@
       left: 50%;
       width: 2px;
       height: 20px;
-      background: #333;
       transform: translateX(-50%);
     }
 
@@ -80,10 +87,9 @@
       left: 10%;
       right: 10%;
       height: 2px;
-      background: #333;
     }
 
-    /* خط عمودی برای هر فرزند به خط افقی */
+    /* خط عمودی هر فرزند */
     .children > .person::before {
       content: "";
       position: absolute;
@@ -91,8 +97,18 @@
       left: 50%;
       width: 2px;
       height: 20px;
-      background: #333;
       transform: translateX(-50%);
+    }
+
+    /* حالت هایلایت قرمز */
+    .highlight-person {
+      border-color: red !important;
+      color: red;
+    }
+    .highlight-line::before,
+    .highlight-line::after,
+    .highlight-line > .person::before {
+      background: red !important;
     }
 
     @keyframes fadeIn {
@@ -119,11 +135,36 @@
   </div>
 
   <script>
-    // باز/بسته کردن فرزندان
+    // پاک کردن هایلایت قبلی
+    function clearHighlights() {
+      document.querySelectorAll('.highlight-person').forEach(el => el.classList.remove('highlight-person'));
+      document.querySelectorAll('.highlight-line').forEach(el => el.classList.remove('highlight-line'));
+    }
+
+    // هایلایت مسیر اجداد
+    function highlightPath(person) {
+      person.classList.add('highlight-person');
+
+      let parentChildren = person.parentElement;
+      while (parentChildren && parentChildren.classList.contains('children')) {
+        parentChildren.classList.add('highlight-line');
+        let parentPerson = parentChildren.previousElementSibling;
+        if (parentPerson && parentPerson.classList.contains('person')) {
+          parentPerson.classList.add('highlight-person');
+          parentChildren = parentPerson.parentElement;
+        } else {
+          break;
+        }
+      }
+    }
+
+    // باز/بسته کردن + هایلایت مسیر
     document.querySelectorAll('.person').forEach(person => {
       person.addEventListener('click', e => {
         e.stopPropagation();
+        clearHighlights();
         person.classList.toggle('open');
+        highlightPath(person);
       });
     });
 
