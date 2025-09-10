@@ -68,7 +68,6 @@
       transition: background 0.3s ease;
     }
 
-    /* خط عمودی از والد به خط افقی */
     .children::before {
       content: "";
       position: absolute;
@@ -79,7 +78,6 @@
       transform: translateX(-50%);
     }
 
-    /* خط افقی بین فرزندان */
     .children::after {
       content: "";
       position: absolute;
@@ -89,7 +87,6 @@
       height: 2px;
     }
 
-    /* خط عمودی هر فرزند */
     .children > .person::before {
       content: "";
       position: absolute;
@@ -126,22 +123,31 @@
         <!-- آلو -->
         <div class="person">آلو</div>
         <div class="children">
-          <!-- فرزندان آلو -->
-          <div class="person">رحیمداد</div>
-          <div class="person">مرادخان</div>
+          <!-- نخی -->
+          <div class="person">نخی</div>
+          <div class="children">
+            <!-- فرزندان نخی -->
+            <div class="person">مراد</div>
+            <div class="children">
+             <!-- فرزندان مراد -->
+              <div class="person">رحیمداد</div>
+              <div class="person">علم‌خان</div>
+            <div class="person">جغردی</div>
+            <div class="children">
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // پاک کردن هایلایت قبلی
     function clearHighlights() {
       document.querySelectorAll('.highlight-person').forEach(el => el.classList.remove('highlight-person'));
       document.querySelectorAll('.highlight-line').forEach(el => el.classList.remove('highlight-line'));
     }
 
-    // هایلایت مسیر اجداد
     function highlightPath(person) {
       person.classList.add('highlight-person');
 
@@ -158,7 +164,6 @@
       }
     }
 
-    // باز/بسته کردن + هایلایت مسیر
     document.querySelectorAll('.person').forEach(person => {
       person.addEventListener('click', e => {
         e.stopPropagation();
@@ -168,7 +173,6 @@
       });
     });
 
-    // درگ روی دسکتاپ و موبایل
     const container = document.getElementById('tree-container');
     const tree = document.getElementById('tree');
     let isPanning = false, startX, startY;
