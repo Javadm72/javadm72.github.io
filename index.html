@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>شجره‌نامه عمودی</title>
+  <title>شجره‌نامه درختی</title>
   <style>
     body, html {
       margin: 0;
@@ -41,7 +41,7 @@
       border-radius: 8px;
       cursor: pointer;
       text-align: center;
-      margin: 10px auto;
+      margin: 10px;
       transition: all 0.3s ease;
       white-space: nowrap;
       position: relative;
@@ -50,10 +50,9 @@
 
     .children {
       display: none;
-      flex-direction: column; /* مهم: بچه‌ها زیر هم قرار بگیرند */
-      align-items: center;
+      justify-content: center;
       position: relative;
-      padding-top: 30px;
+      padding-top: 40px;
     }
 
     .person.open + .children {
@@ -61,37 +60,52 @@
       animation: fadeIn 0.4s ease;
     }
 
-    /* خطوط عمودی */
+    /* خط عمودی بین پدر و خط افقی فرزندان */
     .children::before {
       content: "";
       position: absolute;
       top: 0;
       left: 50%;
       width: 2px;
-      height: 30px;
+      height: 20px;
       background: #333;
       transform: translateX(-50%);
       transition: background 0.3s ease;
     }
 
+    /* خط افقی بالای فرزندان */
+    .children::after {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #333;
+      margin: 0 auto;
+      transition: background 0.3s ease;
+    }
+
+    /* خط عمودی بین هر فرزند و خط افقی */
     .children > .person::before {
       content: "";
       position: absolute;
-      top: -30px;
+      top: -20px;
       left: 50%;
       width: 2px;
-      height: 30px;
+      height: 20px;
       background: #333;
       transform: translateX(-50%);
       transition: background 0.3s ease;
     }
 
-    /* حالت هایلایت */
+    /* هایلایت */
     .highlight-person {
       border-color: red !important;
       color: red;
     }
     .highlight-line::before,
+    .highlight-line::after,
     .children > .highlight-person::before {
       background: red !important;
     }
@@ -114,14 +128,14 @@
           <!-- نخی -->
           <div class="person">نخی</div>
           <div class="children">
-            <!-- مراد -->
+            <!-- مراد و جغردی کنار هم -->
             <div class="person">مراد</div>
+            <div class="person">جغردی</div>
             <div class="children">
+              <!-- فرزندان مراد -->
               <div class="person">رحیمداد</div>
               <div class="person">علم‌خان</div>
             </div>
-            <!-- جغردی -->
-            <div class="person">جغردی</div>
           </div>
         </div>
       </div>
