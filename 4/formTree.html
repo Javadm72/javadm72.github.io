@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="tree_style.css">
+
+</head>
+<body>
+    <div class="tree">
+        <ul>
+            <li>
+                <div class="tree-node has-children" data-name="محمد" data-last="رضایی" data-parent="-" onclick="toggleChildren(this)">محمد رضایی (مدیر)</div>
+                <button class="info-btn" onclick="showInfo('1','2','3','4','5','6','7')">مشاهده اطلاعات</button>
+                <ul class="children">
+                    <li>
+                        <div class="tree-node has-children" data-name="فاطمه" data-last="کریمی" data-parent="محمد" onclick="toggleChildren(this)">فاطمه کریمی (معاون)</div>
+                        <button class="info-btn" onclick="showInfo('فاطمه', 'کریمی', '1')">مشاهده اطلاعات</button>
+                        <ul class="children">
+                            <li>
+                                <div class="tree-node" data-name="علی" data-last="محمدی" data-parent="فاطمه" onclick="toggleChildren(this)">علی محمدی (کارشناس)</div>
+                                <button class="info-btn" onclick="showInfo('علی', 'محمدی', '1370/11/05')">مشاهده اطلاعات</button>
+                            </li>
+                            <li>
+                                <div class="tree-node" data-name="زهرا" data-last="احمدی" data-parent="فاطمه" onclick="toggleChildren(this)">زهرا احمدی (کارشناس)</div>
+                                <button class="info-btn" onclick="showInfo('زهرا', 'احمدی', '1368/09/17')">مشاهده اطلاعات</button>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="tree-node has-children" data-name="رضا" data-last="حسینی" data-parent="محمد" onclick="toggleChildren(this)">رضا حسینی (سرپرست)</div>
+                        <button class="info-btn" onclick="showInfo('رضا', 'حسینی', '1358/12/14')">مشاهده اطلاعات</button>
+                        <ul class="children">
+                            <li>
+                                <div class="tree-node" data-name="سارا" data-last="امینی" data-parent="رضا" onclick="toggleChildren(this)">سارا امینی (کارمند)</div>
+                                <button class="info-btn" onclick="showInfo('سارا', 'امینی', '1372/04/30')">مشاهده اطلاعات</button>
+                            </li>
+                            <li>
+                                <div class="tree-node" data-name="امیر" data-last="عباسی" data-parent="رضا" onclick="toggleChildren(this)">امیر عباسی (کارمند)</div>
+                                <button class="info-btn" onclick="showInfo('امیر', 'عباسی', '1369/08/21')">مشاهده اطلاعات</button>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

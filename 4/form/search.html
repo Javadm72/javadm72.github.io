@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جستجو</title>
+<link rel="stylesheet" href="/tree_style.css">
+
+</head>
+<body>
+    <div id="searchModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeSearchModal()">&times;</span>
+          <h2>جستجو در شجره‌نامه</h2>
+          <div class="search-row">
+            <label>نام فرد:</label>
+            <input type="text" id="searchName">
+          </div>
+          <div class="search-row">
+            <label>نام پدر/مادر:</label>
+            <input type="text" id="searchParent">
+          </div>
+          <button class="search-btn" onclick="performSearch()">تأیید</button>
+          <div id="searchResults"></div>
+        </div>
+      </div>
+</body>
+</html>
