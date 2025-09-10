@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>شجره‌نامه با هایلایت</title>
+  <title>شجره‌نامه عمودی</title>
   <style>
     body, html {
       margin: 0;
@@ -41,7 +41,7 @@
       border-radius: 8px;
       cursor: pointer;
       text-align: center;
-      margin: 10px;
+      margin: 10px auto;
       transition: all 0.3s ease;
       white-space: nowrap;
       position: relative;
@@ -50,61 +50,49 @@
 
     .children {
       display: none;
+      flex-direction: column; /* مهم: بچه‌ها زیر هم قرار بگیرند */
+      align-items: center;
       position: relative;
-      padding-top: 40px;
+      padding-top: 30px;
     }
 
     .person.open + .children {
       display: flex;
-      justify-content: center;
       animation: fadeIn 0.4s ease;
     }
 
-    /* خطوط پیش‌فرض */
-    .children::before,
-    .children::after,
-    .children > .person::before {
-      background: #333;
-      transition: background 0.3s ease;
-    }
-
+    /* خطوط عمودی */
     .children::before {
       content: "";
       position: absolute;
       top: 0;
       left: 50%;
       width: 2px;
-      height: 20px;
+      height: 30px;
+      background: #333;
       transform: translateX(-50%);
-    }
-
-    .children::after {
-      content: "";
-      position: absolute;
-      top: 20px;
-      left: 10%;
-      right: 10%;
-      height: 2px;
+      transition: background 0.3s ease;
     }
 
     .children > .person::before {
       content: "";
       position: absolute;
-      top: -20px;
+      top: -30px;
       left: 50%;
       width: 2px;
-      height: 20px;
+      height: 30px;
+      background: #333;
       transform: translateX(-50%);
+      transition: background 0.3s ease;
     }
 
-    /* حالت هایلایت قرمز */
+    /* حالت هایلایت */
     .highlight-person {
       border-color: red !important;
       color: red;
     }
     .highlight-line::before,
-    .highlight-line::after,
-    .highlight-line > .person::before {
+    .children > .highlight-person::before {
       background: red !important;
     }
 
@@ -117,7 +105,7 @@
 <body>
   <div id="tree-container">
     <div id="tree">
-      <!-- ریشه -->
+      <!-- هوتک -->
       <div class="person">هوتک</div>
       <div class="children">
         <!-- آلو -->
@@ -126,16 +114,14 @@
           <!-- نخی -->
           <div class="person">نخی</div>
           <div class="children">
-            <!-- فرزندان نخی -->
+            <!-- مراد -->
             <div class="person">مراد</div>
             <div class="children">
-             <!-- فرزندان مراد -->
               <div class="person">رحیمداد</div>
               <div class="person">علم‌خان</div>
-            <div class="person">جغردی</div>
-            <div class="children">
-
             </div>
+            <!-- جغردی -->
+            <div class="person">جغردی</div>
           </div>
         </div>
       </div>
@@ -150,7 +136,6 @@
 
     function highlightPath(person) {
       person.classList.add('highlight-person');
-
       let parentChildren = person.parentElement;
       while (parentChildren && parentChildren.classList.contains('children')) {
         parentChildren.classList.add('highlight-line');
@@ -158,9 +143,7 @@
         if (parentPerson && parentPerson.classList.contains('person')) {
           parentPerson.classList.add('highlight-person');
           parentChildren = parentPerson.parentElement;
-        } else {
-          break;
-        }
+        } else break;
       }
     }
 
